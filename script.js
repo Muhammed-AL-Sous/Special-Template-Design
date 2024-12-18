@@ -51,11 +51,7 @@ settingsIconBtn.addEventListener("click", (e) => {
 });
 
 document.addEventListener("click", (e) => {
-  if (
-    e.target !== settingsIconBtn &&
-    e.target !== settingsIconBtn &&
-    !settingsBox.contains(e.target)
-  ) {
+  if (e.target !== settingsIconBtn && !settingsBox.contains(e.target)) {
     if (settingsIconBtn.classList.contains("fa-spin")) {
       settingsIconBtn.classList.remove("fa-spin");
     }
@@ -250,6 +246,20 @@ randomBackEl.forEach((span) => {
 
 // ====================================================================== //
 
+// Handle Active State
+
+function handleActive(ev) {
+  // Remove Active Class From All Childrens
+  ev.target.parentElement.querySelectorAll(".active").forEach((element) => {
+    element.classList.remove("active");
+  });
+
+  // Add Active Class On Target Element
+  ev.target.classList.add("active");
+}
+
+// ====================================================================== //
+
 // Select Landing Page Element
 let landingPage = document.querySelector(".landing-page");
 
@@ -398,20 +408,6 @@ allBullets.forEach((bullet) => {
 
 // ====================================================================== //
 
-// Handle Active State
-
-function handleActive(ev) {
-  // Remove Active Class From All Childrens
-  ev.target.parentElement.querySelectorAll(".active").forEach((element) => {
-    element.classList.remove("active");
-  });
-
-  // Add Active Class On Target Element
-  ev.target.classList.add("active");
-}
-
-// ====================================================================== //
-
 let bulletsSpan = document.querySelectorAll(".bullets-option span");
 
 let bulletsContainer = document.querySelector(".nav-bullets");
@@ -488,12 +484,9 @@ carouselChildren
   });
 
 // Insert Copies Of The First Few Cards To End Of Carousel For Infinite Scrolling
-carouselChildren
-  .slice(0, cardPreView)
-  .reverse()
-  .forEach((card) => {
-    carousel.insertAdjacentHTML("beforeend", card.outerHTML);
-  });
+carouselChildren.slice(0, cardPreView).forEach((card) => {
+  carousel.insertAdjacentHTML("beforeend", card.outerHTML);
+});
 
 // add Event Listener To The Arrow Buttons To Scroll The Carousel Left And Right
 arrowBtns.forEach((btn) => {
